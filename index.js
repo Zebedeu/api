@@ -1,12 +1,17 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv/config');
 
+app.use(cors());
 app.use(bodyParser.json());
-const autRouter = require('./routes/Post');
-app.use('/posts', autRouter);
+const postRouter = require('./routes/Post');
+const autRouter = require('./routes/auth');
+
+app.use('/api/user', autRouter);
+app.use('/posts', postRouter);
 app.get('/', (req, res) => {
     console.log("We are on home");
 } );
