@@ -12,7 +12,7 @@ const postRouter = require('./routes/Post');
 const autRouter = require('./routes/auth');
 
 app.use('/api/user', autRouter);
-app.use('/posts', postRouter);
+app.use('/api/posts', postRouter);
 app.get('/', (req, res) => {
     console.log("We are on home");
 } );
