@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authentication register 1`] = `
+Object {
+  "data": Object {
+    "email": "b898@marciozebedeu.com",
+    "name": "Marcio Zebedeu",
+    "password": "1234e",
+  },
+  "headers": Object {
+    "content-type": "application/json",
+  },
+  "method": "POST",
+  "url": "http://127.0.0.1:3000/api/user/register",
+}
+`;

@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../app/models/Post');
 const verify = require('./verifytoken');
 // Get back all the posts
+
 router.get('/', verify, async (req, res) =>{
         try {
             const posts = await Post.find();
@@ -11,8 +12,8 @@ router.get('/', verify, async (req, res) =>{
             res.json({message: err})
         }
 })
-// Submit a post
-router.post('/',verify, async (req, res) => {
+
+const submitPost = async (req, res) => {
     // console.log(req.body);
     const post = new Post({
         title: req.body.title,
@@ -24,21 +25,23 @@ router.post('/',verify, async (req, res) => {
     }catch( err) {
         res.json({message: err});
     }
-});
+}
+// Submit a post
+router.post('/',verify, submitPost);
 
+const getPostById = async (req, res)=> {
+    try{
+     const post = await Post.findById(req.params.postId);
+     res.json(post);
+    }catch(err ) {
+        res.json({message: err});
+    }
+ }
 // especific post
 
-router.get('/:postId', verify, async (req, res)=> {
-   try{
-    const post = await Post.findById(req.params.postId);
-    res.json(post);
-   }catch(err ) {
-       res.json({message: err});
-   };
-});
+router.get('/:postId', verify, getPostById);
 
-// delete post by id
-router.delete('/:postId', verify, async (req, res)=> {
+const deletePostById =  async (req, res)=> {
     try {
         const removePost = await Post.remove({_id: req.params.postId});
         res.json(removePost);
@@ -46,15 +49,19 @@ router.delete('/:postId', verify, async (req, res)=> {
     } catch (err) {
         res.json({message: err});
     }
-});
+}
+// delete post by id
+router.delete('/:postId', verify, deletePostById);
 
-// Update a post by id
-router.patch('/:postId', verify, async (req, res)=> {
+const updatePostById = async (req, res)=> {
     try {
         const updatePost = await Post.updateOne({_id: req.params.postId}, { $set: {title: req.body.title}});
         res.json(updatePost);
     } catch (err) {
         res.json({message: err});
     }
-});
+}
+// Update a post by id
+router.patch('/:postId', verify, updatePostById);
+
 module.exports = router;

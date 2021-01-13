@@ -1,34 +1,38 @@
+//import { Server } from '@overnightjs/core';
+// const cors = require('cors');
+// const bodyParser = require('body-parser');
+// require('dotenv/config');
 
 const express = require('express');
+const app = express();
+app.listen(3000, () => console.log("Server Up ad running"));
 
-const cors = require('cors');
-const bodyParser = require('body-parser');
-require('dotenv/config');
-
-class AppController {
-    constructor (){
-        this.express = express();
+// export class AppController extends Server {
+//     constructor( port = 3000) {
+//         super();
+//       }
+//        init() {
+    
+//         this.middleware();
+//         this.routes();
         
-    }
-    middleware() {
-        this.express.use(cors());
-        this.express.use(bodyParser.json());
-    }
+//     }
+//     middleware() {
+//         this.app.use(cors());
+//         this.app.use(bodyParser.json());
+    
+//     }
 
-    routes() {
-        this.express.use(require('./routes/Post'));
-        this.express.use(require('./routes/auth'));
+//     routes() {
+//         const postRouter = require('./routes/Post');
+//         const userRouter = require('./routes/auth');
+//         this.addControllers([postRouter, userRouter]);
+//     }
+//      getApp() {
+//         return this.app;
+//       }
+// }
 
-    }
-}
+// module.exports = new AppController().express;
 
-// app.use('/api/user', autRouter);
-// app.use('/api/posts', postRouter);
-// app.get('/', (req, res) => {
-//     console.log("We are on home");
-// } );
-
-//Edit User: university-root@admin  atlasAdmin@admin
-
-module.exports = new AppController().express;
-
+module.exports = app
